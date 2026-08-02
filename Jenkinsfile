@@ -22,12 +22,10 @@ pipleine{
             steps{
                 echo"Application: ${APP_NAME}"
                 echo"Branch: master"
-                echo"Version: ${BUILD_VERSION}"
+                echo"Version: ${params.BUILD_VERSION}"
                 echo"Build Number: ${BUILD_NUMBER}"
                 echo"Environment: ${DEPLOY_ENV}"
-                sh '''
-                ./gradlew clean build
-                '''
+                sh './gradlew clean build'
             }
         }
         stage('Test'){
@@ -37,9 +35,7 @@ pipleine{
                 }
             }
             steps{
-               sh'''
-               ./gradlew test
-               '''
+               sh'./gradlew test'
             }
         }
         stage('Static Analysis'){
@@ -47,9 +43,18 @@ pipleine{
                 echo "Running Sonar Scan..."
             }
         }
-        stage('Static Analysis'){
+        stage('Package'){
             steps{
-                echo "Running Sonar Scan..."
+                echo "Packaging Application"
+                sh './gradlew bootJar'
+                sh 'ls -l build/libs'
+            }
+        }
+
+        stage('Package'){
+            steps{
+                echo "Building Docker image."
+                sh 'docker build -t loan-service:${params.BUILD_VERSION}'
             }
         }
     }
