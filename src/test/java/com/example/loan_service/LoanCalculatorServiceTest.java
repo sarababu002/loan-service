@@ -16,7 +16,7 @@ class LoanCalculatorServiceTest {
     @Test
     void shouldCalculateMonthlyInstallment(){
 
-        double emi = service.calculateMonthlyInstallment(100000,5);
+        double emi = service.calculateMonthlyInstallments(100000,5);
 
         assertTrue(emi>2000);
     }
