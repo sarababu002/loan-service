@@ -30,7 +30,7 @@ pipeline{
         }
         stage('Test'){
             when{
-                expressions{
+                expression{
                     params.RUN_TESTS
                 }
             }
