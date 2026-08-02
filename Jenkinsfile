@@ -21,7 +21,7 @@ pipeline{
         stage('Build'){
             steps{
                 echo"Application: ${env.APP_NAME}"
-                echo"Branch: ${BRANCH_NAME}"
+                echo"Branch: master"
                 echo"Version: ${params.BUILD_VERSION}"
                 echo"Build Number: ${BUILD_NUMBER}"
                 echo"Environment: ${env.DEPLOY_ENV}"
