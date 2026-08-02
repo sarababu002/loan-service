@@ -1,9 +1,8 @@
-pipleine{
+pipeline{
     environment{
-      APP_NAME=loan-service
-      DOCKER_IMAGE=mycompany/loan-service
-      JAVA_HOME=...
-      BUILD_TOOL=gradle
+      APP_NAME='loan-service'
+      DOCKER_IMAGE='mycompany/loan-service'
+      BUILD_TOOL='gradle'
     }
 
     parameters{
@@ -12,26 +11,27 @@ pipleine{
         string(name:'BUILD_VERSION')
     }
     stages{
-        stage('Clone'){
+        stage('Checkout'){
             steps{
-                git clone
+                checkout scm
             }
         }
 
         stage('Build'){
             steps{
-                echo"Application: ${APP_NAME}"
-                echo"Branch: master"
+                echo"Application: ${env.APP_NAME}"
+                echo"Branch: ${BRANCH_NAME}"
                 echo"Version: ${params.BUILD_VERSION}"
                 echo"Build Number: ${BUILD_NUMBER}"
-                echo"Environment: ${DEPLOY_ENV}"
+                echo"Environment: ${env.DEPLOY_ENV}"
+                sh 'chmod +x gradlew'
                 sh './gradlew clean build'
             }
         }
         stage('Test'){
             when{
                 expressions{
-                    RUN_TESTS==true
+                    params.RUN_TESTS
                 }
             }
             steps{
