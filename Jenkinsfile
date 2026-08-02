@@ -55,7 +55,7 @@ pipeline{
         stage('Docker Build'){
             steps{
                 echo "Building Docker image."
-                sh "docker build -t loan-service:${params.BUILD_VERSION} ."
+                sh "docker build -t loan-service:latest ."
             }
         }
     }
