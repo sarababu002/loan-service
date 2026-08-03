@@ -53,13 +53,9 @@ pipeline{
         }
 
         stage('Docker Build'){
-            environment {
-                    DOCKER_HOST = ''
-                    DOCKER_TLS_VERIFY = ''
-            }
             steps{
                 echo "Building Docker image."
-                sh "docker build -t loan-service:latest ."
+                sh "docker build -t loan-service:${env.BUILD_VERSION} ."
             }
         }
     }
