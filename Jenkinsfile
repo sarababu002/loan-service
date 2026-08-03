@@ -65,7 +65,7 @@ pipeline{
         stage('Pushing to ECR') {
          steps{
          script {
-         sh "docker tag ${IMAGE_REPO_NAME}:${env.BUILD_VERSION} ${REPOSITORY_URI}:${env.BUILD_VERSION}"
+         sh "docker tag ${IMAGE_REPO_NAME}:${env.BUILD_VERSION} ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${env.BUILD_VERSION}"
          sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${env.BUILD_VERSION}"
          }
          }
