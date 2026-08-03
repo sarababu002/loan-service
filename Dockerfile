@@ -1,5 +1,5 @@
 FROM eclipse-temurin:21-jre
 
-COPY build/libs/*.jar app.jar
+COPY build/libs/loan-service.jar app.jar
 
 ENTRYPOINT ["java","-jar","/app.jar"]
